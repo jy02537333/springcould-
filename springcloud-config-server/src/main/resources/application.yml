@@ -1,0 +1,29 @@
+server:
+  port: 8800
+eureka:
+  client:
+    service-url:
+#      defaultZone: http://root:booszy@172.17.0.1:8761/eureka
+      defaultZone: http://root:booszy@localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
+    appname: springcloud-config-server
+spring:
+  application:
+    name: springcloud-config-server
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/springcloud-config-profile
+  profiles:
+     active: native
+security:
+  basic:
+    enabled: true
+  user:
+    name: root
+    password: booszy
+info:
+  name: 配置中心

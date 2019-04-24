@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.13.RELEASE</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>pri.zxw</groupId>
+    <artifactId>spring_base_parent</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+    <name>spring_base_parent</name>
+    <description>张相伟测试springCloud</description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring-cloud.version>Camden.SR7</spring-cloud.version>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Camden.SR7</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <finalName>${project.name}</finalName>
+                </configuration>
+            </plugin>
+
+            <!--基于不同环境打包-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <!-- 覆盖原有文件 -->
+                            <overwrite>true</overwrite>
+                            <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                            <!-- 待处理的资源定义 -->
+                            <resources>
+                                <resource>
+                                    <!-- 指定resources插件处理哪个目录下的资源文件 -->
+                                    <directory>src/main/resources/${package.environment}</directory>
+                                    <filtering>false</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+        <!-- 基于不同环境打包 -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <!-- 资源根目录排除各环境的配置，防止在生成目录中多余其它目录 -->
+                <excludes>
+                    <exclude>test/*</exclude>
+                    <exclude>prod/*</exclude>
+                    <exclude>dev/*</exclude>
+                    <exclude>*.xml</exclude>
+                    <!-- <exclude>*.properties</exclude> -->
+                </excludes>
+            </resource>
+        </resources>
+    </build>
+
+    <!--基于不同环境打包-->
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <package.environment>dev</package.environment>
+            </properties>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <package.environment>test</package.environment>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <package.environment>prod</package.environment>
+            </properties>
+        </profile>
+    </profiles>
+
+
+</project>
