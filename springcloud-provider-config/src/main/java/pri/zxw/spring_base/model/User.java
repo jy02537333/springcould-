@@ -1,55 +1,135 @@
 package pri.zxw.spring_base.model;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+public class User {
+    private String id;
 
-@Entity
-@Table(name="tb_yasaka_users")
-public class User extends IDEntity {
-    /**
-     * 用户账号
-     */
-    @Column(unique = true)
-    private String username;
+    private String rootId;
 
-    /**
-     * 用户密码
-     */
-    @JsonIgnore
-    @JSONField(serialize = false)
-    private String password = "";
+    private String subId;
 
-    /**
-     * 用户昵称
-     */
-    private String nickName = "";
+    private String name;
 
+    private String description;
 
-    public String getUsername() {
-        return username;
+    private String purpose;
+
+    private Date createTime;
+
+    private Date updateTime;
+
+    private String creator;
+
+    private Boolean isDelete;
+
+    private Short dataType;
+
+    private String dataSource;
+
+    private Long dataSize;
+
+    public String getId() {
+        return id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
-    public String getPassword() {
-        return password;
+    public String getRootId() {
+        return rootId;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setRootId(String rootId) {
+        this.rootId = rootId == null ? null : rootId.trim();
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getSubId() {
+        return subId;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setSubId(String subId) {
+        this.subId = subId == null ? null : subId.trim();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
+    }
+
+    public String getPurpose() {
+        return purpose;
+    }
+
+    public void setPurpose(String purpose) {
+        this.purpose = purpose == null ? null : purpose.trim();
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator == null ? null : creator.trim();
+    }
+
+    public Boolean getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Boolean isDelete) {
+        this.isDelete = isDelete;
+    }
+
+    public Short getDataType() {
+        return dataType;
+    }
+
+    public void setDataType(Short dataType) {
+        this.dataType = dataType;
+    }
+
+    public String getDataSource() {
+        return dataSource;
+    }
+
+    public void setDataSource(String dataSource) {
+        this.dataSource = dataSource == null ? null : dataSource.trim();
+    }
+
+    public Long getDataSize() {
+        return dataSize;
+    }
+
+    public void setDataSize(Long dataSize) {
+        this.dataSize = dataSize;
     }
 }

@@ -1,5 +1,9 @@
 package pri.zxw.spring_base.base;
 
+
+
+import pri.zxw.comutil.entity.ErrorReturn;
+
 import java.util.List;
 
 /**
@@ -11,28 +15,51 @@ import java.util.List;
 public interface ServiceInterface<T> {
 
 	/**
-	 * 添加
+	 * 根据条件查询列表
+	 * @param id 主键查询
 	 */
-	public T save(T t) throws Exception;
+	T selectByPrimaryKey(String id);
 	/**
-	 * 修改
+	 * 根据条件查询列表
+	 * @param pageInfo 自定义的分页page参数与实体信息
 	 */
-	public void update(T t) throws Exception;
+	com.github.pagehelper.PageInfo selectByExample(T extends pri.zxw.comutil.PageInfo pageInfo);
+
+	ErrorReturn insert(T record);
+	/**
+	 * 批量添加
+	 */
+	ErrorReturn inserts(List<T> list);
+	/**
+	 * 插入特定条件值
+	 */
+	ErrorReturn insertSelective(T record);
 
 	/**
 	 * 删除
 	 */
-	public void del(String id) throws Exception;
+	ErrorReturn deleteByPrimaryKey(String id);
+	/**
+	 * 软删除
+	 */
+	ErrorReturn updateStatusToDel(String id);
 
 	/**
-	 * 查询单个
+	 * 软删除
 	 */
-	public T find(String id) throws Exception;
+	ErrorReturn updateStatusToDelByDataId(String id);
+
+
 
 	/**
-	 * 查询所有
+	 * 根据主键按照条件更新
 	 */
-	public List<T> findAll() throws Exception;
+	ErrorReturn updateByPrimaryKeySelective(T record);
+
+	/**
+	 * 根据主键全部信息更新
+	 */
+	ErrorReturn updateByPrimaryKey(T record);
 
 
 }

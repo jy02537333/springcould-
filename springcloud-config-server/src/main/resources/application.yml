@@ -14,11 +14,19 @@ spring:
     name: springcloud-config-server
   cloud:
     config:
+      enabled: true
       server:
-        native:
-          search-locations: classpath:/springcloud-config-profile
+#        native:
+        svn:
+          uri: svn://192.168.17.130:3690/
+          username: admin
+          password: admin
+          default-label: share_config_file
   profiles:
-     active: native
+    active: subversion
+#          search-locations: classpath:/springcloud-config-profile
+#  profiles:
+#     active: native
 security:
   basic:
     enabled: true
